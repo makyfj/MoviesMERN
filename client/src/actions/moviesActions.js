@@ -12,7 +12,7 @@ export const getMovies = () => async (dispatch) => {
   }
 };
 
-export const createMovie = ({ movie }) => async (dispatch) => {
+export const createMovie = (movie) => async (dispatch) => {
   try {
     const { data } = await api.createMovie(movie);
     dispatch({

@@ -1,5 +1,4 @@
 import Movie from "../models/movieModel.js";
-import mongoose from "mongoose";
 import asyncHandler from "express-async-handler";
 
 // express-async-handler instead of try/catch
