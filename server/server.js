@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
+import movieRoutes from "./routes/movieRoutes.js";
 
 // env file
 dotenv.config();
@@ -16,9 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // routes
-app.get("/", (req, res) => {
-  res.send("Welcome to Movies");
-});
+app.use("/api/movies", movieRoutes);
 
 // Port
 const PORT = process.env.PORT || 5000;
