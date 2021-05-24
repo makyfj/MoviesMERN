@@ -6,7 +6,7 @@ const movieSchema = mongoose.Schema({
   description: String,
   language: String,
   actors: [String],
-  year: Number,
+  year: String,
   selectedFile: String, // for image selection
   likeCount: {
     type: Number,
