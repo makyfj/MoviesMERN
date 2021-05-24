@@ -1,15 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container, AppBar, Typography, Grow, Grid } from "@material-ui/core";
 import movies from "./images/movies.svg";
 import Movies from "./components/Movies/Movies";
 import Form from "./components/Form/Form";
+import useStyles from "./styles";
+import { useDispatch } from "react-redux";
+import { getMovies } from "./actions/moviesActions";
 
 const App = () => {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getMovies());
+  }, [dispatch]);
+
   return (
     <>
       <Container maxWidth="lg">
-        <AppBar position="static" color="inherit">
-          <Typography variant="h2" align="center">
+        <AppBar className={classes.appBar} position="static" color="inherit">
+          <Typography className={classes.heading} variant="h2" align="center">
             Movies
           </Typography>
           <img src={movies} alt="movies" height="80" />
