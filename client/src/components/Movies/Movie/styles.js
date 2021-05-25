@@ -36,7 +36,7 @@ export default makeStyles({
   grid: {
     display: "flex",
   },
-  details: {
+  language: {
     display: "flex",
     justifyContent: "space-between",
     margin: "20px",
