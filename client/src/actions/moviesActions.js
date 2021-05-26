@@ -3,6 +3,7 @@ import {
   FETCH_ALL,
   CREATE_MOVIE,
   UPDATE_MOVIE,
+  DELETE_MOVIE,
 } from "../constants/moviesConstants";
 
 // Action creators
@@ -34,6 +35,16 @@ export const updateMovie = (id, movie) => async (dispatch) => {
     const { data } = await api.updateMovie(id, movie);
     dispatch({ type: UPDATE_MOVIE, payload: data });
   } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteMovie = (id) => async (dispatch) => {
+  try {
+    await api.deleteMovie(id);
+    dispatch({ type: DELETE_MOVIE, payload: id });
+  } catch (error) {
+    /* handle error */
     console.log(error);
   }
 };

@@ -3,6 +3,7 @@ import {
   getMovies,
   createMovie,
   updateMovie,
+  deleteMovie,
 } from "../controllers/movieControllers.js";
 
 const router = express.Router();
@@ -10,5 +11,6 @@ const router = express.Router();
 router.get("/", getMovies);
 router.post("/", createMovie);
 router.patch("/:id", updateMovie);
+router.delete("/:id", deleteMovie);
 
 export default router;

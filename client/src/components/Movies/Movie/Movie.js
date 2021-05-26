@@ -12,9 +12,13 @@ import {
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import DeleteIcon from "@material-ui/icons/Delete";
+import { deleteMovie } from "../../../actions/moviesActions";
+import { useDispatch } from "react-redux";
 
 const Movie = ({ movie, setCurrentId }) => {
   const classes = useStyles();
+
+  const dispatch = useDispatch();
   return (
     <Card className={classes.card}>
       <CardMedia
@@ -62,7 +66,11 @@ const Movie = ({ movie, setCurrentId }) => {
           <ThumbUpAltIcon />
           Like {movie.likeCount}
         </Button>
-        <Button size="small" color="primary" onClick={() => {}}>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => dispatch(deleteMovie(movie._id))}
+        >
           <DeleteIcon />
           Delete
         </Button>
