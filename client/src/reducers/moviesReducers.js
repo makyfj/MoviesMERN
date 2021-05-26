@@ -6,13 +6,17 @@ import {
   LIKE_MOVIE,
 } from "../constants/moviesConstants";
 
-export const movies = (state = [], action) => {
+export const movies = (movies = [], action) => {
   switch (action.type) {
     case FETCH_ALL:
       return action.payload;
     case CREATE_MOVIE:
-      return [...state, action.payload];
+      return [...movies, action.payload];
+    case UPDATE_MOVIE:
+      return movies.map((movie) =>
+        movie._id === action.payload._id ? action.payload : movie
+      );
     default:
-      return state;
+      return movies;
   }
 };

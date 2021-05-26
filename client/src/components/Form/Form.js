@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useStyles from "./styles";
 import FileBase from "react-file-base64";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
-import { useDispatch } from "react-redux";
-import { createMovie } from "../../actions/moviesActions";
+import { useDispatch, useSelector } from "react-redux";
+import { createMovie, updateMovie } from "../../actions/moviesActions";
 
-const Form = () => {
+const Form = ({ currentId, setCurrentId }) => {
   const classes = useStyles();
 
   const [movieData, setMovieData] = useState({
@@ -18,16 +18,40 @@ const Form = () => {
     selectedFile: "",
   });
 
+  const movie = useSelector((state) =>
+    currentId ? state.movies.find((p) => p._id === currentId) : null
+  );
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (movie) {
+      setMovieData(movie);
+    }
+  }, [movie]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(createMovie(movieData));
+    if (currentId) {
+      dispatch(updateMovie(currentId, movieData));
+    } else {
+      dispatch(createMovie(movieData));
+    }
+    clear();
   };
 
-  const handleClear = () => {
-    console.log("Clear");
+  const clear = () => {
+    setCurrentId(null);
+    setMovieData({
+      director: "",
+      title: "",
+      description: "",
+      language: "",
+      actors: "",
+      year: "",
+      selectedFile: "",
+    });
   };
 
   return (
@@ -38,12 +62,15 @@ const Form = () => {
         noValidate
         onSubmit={handleSubmit}
       >
-        <Typography variant="h6">Creating a Movie</Typography>
+        <Typography variant="h6">
+          {currentId ? "Editing" : "Creating"} a Movie
+        </Typography>
         <TextField
           name="director"
           variant="outlined"
           label="Director"
           fullWidth
+          required={true}
           value={movieData.director}
           onChange={(e) =>
             setMovieData({ ...movieData, director: e.target.value })
@@ -122,7 +149,7 @@ const Form = () => {
           color="secondary"
           size="large"
           type="submit"
-          onClick={handleClear}
+          onClick={clear}
         >
           Clear
         </Button>

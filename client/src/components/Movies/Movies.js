@@ -4,7 +4,7 @@ import useStyles from "./styles";
 import { useSelector } from "react-redux";
 import { Grid, CircularProgress } from "@material-ui/core";
 
-const Movies = () => {
+const Movies = ({ setCurrentId }) => {
   const classes = useStyles();
   const movies = useSelector((state) => state.movies);
   return !movies.length ? (
@@ -18,7 +18,7 @@ const Movies = () => {
     >
       {movies.map((movie) => (
         <Grid item key={movie._id} xs={12} sm={5}>
-          <Movie movie={movie} />
+          <Movie movie={movie} setCurrentId={setCurrentId} />
         </Grid>
       ))}
     </Grid>

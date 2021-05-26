@@ -1,9 +1,14 @@
 import express from "express";
-import { getMovies, createMovie } from "../controllers/movieControllers.js";
+import {
+  getMovies,
+  createMovie,
+  updateMovie,
+} from "../controllers/movieControllers.js";
 
 const router = express.Router();
 
 router.get("/", getMovies);
 router.post("/", createMovie);
+router.patch("/:id", updateMovie);
 
 export default router;

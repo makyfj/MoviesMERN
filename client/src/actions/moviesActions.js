@@ -1,5 +1,9 @@
 import * as api from "../api/moviesAPI";
-import { FETCH_ALL, CREATE_MOVIE } from "../constants/moviesConstants";
+import {
+  FETCH_ALL,
+  CREATE_MOVIE,
+  UPDATE_MOVIE,
+} from "../constants/moviesConstants";
 
 // Action creators
 export const getMovies = () => async (dispatch) => {
@@ -21,6 +25,15 @@ export const createMovie = (movie) => async (dispatch) => {
     });
   } catch (error) {
     /* handle error */
+    console.log(error);
+  }
+};
+
+export const updateMovie = (id, movie) => async (dispatch) => {
+  try {
+    const { data } = await api.updateMovie(id, movie);
+    dispatch({ type: UPDATE_MOVIE, payload: data });
+  } catch (error) {
     console.log(error);
   }
 };

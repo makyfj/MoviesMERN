@@ -1,4 +1,5 @@
 import Movie from "../models/movieModel.js";
+import mongoose from "mongoose";
 import asyncHandler from "express-async-handler";
 
 // express-async-handler instead of try/catch
@@ -21,4 +22,21 @@ export const createMovie = asyncHandler(async (req, res) => {
 
   const createdMovie = await newMovie.save();
   res.status(201).json(createdMovie);
+});
+
+export const updateMovie = asyncHandler(async (req, res) => {
+  // get id
+  const { id: _id } = req.params;
+  const movie = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(_id))
+    return res.status(404).send("No post with that id");
+
+  const updatedMovie = await Movie.findByIdAndUpdate(
+    _id,
+    { ...movie, _id },
+    { new: true }
+  );
+
+  res.json(updatedMovie);
 });
