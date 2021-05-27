@@ -12,6 +12,7 @@ export const movies = (movies = [], action) => {
       return action.payload;
     case CREATE_MOVIE:
       return [...movies, action.payload];
+    case LIKE_MOVIE:
     case UPDATE_MOVIE:
       return movies.map((movie) =>
         movie._id === action.payload._id ? action.payload : movie

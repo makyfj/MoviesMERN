@@ -51,3 +51,19 @@ export const deleteMovie = asyncHandler(async (req, res) => {
 
   res.json({ message: "Movie deleted successfully" });
 });
+
+export const likeMovie = asyncHandler(async (req, res) => {
+  const { id: _id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(_id))
+    return res.status(404).send("No post with that id");
+
+  const movie = await Movie.findById(_id);
+  const updatedMovie = await Movie.findByIdAndUpdate(
+    _id,
+    { likeCount: movie.likeCount + 1 },
+    { new: true }
+  );
+
+  res.json(updatedMovie);
+});

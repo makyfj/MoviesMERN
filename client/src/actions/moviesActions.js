@@ -4,6 +4,7 @@ import {
   CREATE_MOVIE,
   UPDATE_MOVIE,
   DELETE_MOVIE,
+  LIKE_MOVIE,
 } from "../constants/moviesConstants";
 
 // Action creators
@@ -43,6 +44,16 @@ export const deleteMovie = (id) => async (dispatch) => {
   try {
     await api.deleteMovie(id);
     dispatch({ type: DELETE_MOVIE, payload: id });
+  } catch (error) {
+    /* handle error */
+    console.log(error);
+  }
+};
+
+export const likeMovie = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.likeMovie(id);
+    dispatch({ type: LIKE_MOVIE, payload: data });
   } catch (error) {
     /* handle error */
     console.log(error);
